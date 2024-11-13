@@ -1,4 +1,4 @@
-# Project 19: Letter Match Game
+# Project 19: Letter Matching Game
 
 In this project, we will use what we've learned about files to upgrade a previous game. As you'll recall, in Project 7, we built a game that had the player guess letters in a word. It then revealed the letters they had guessed correctly. Unfortunately, we had to hard-code the list of words, which made it fairly limited.
 
@@ -31,7 +31,7 @@ import java.util.List;
 
 ## Make the Constructor & main
 
-Create the usual constructor for a frame. I set my size to be 400x200, but you may want yours a little bigger or smaller depending on your screen and fonts. Put your name and / or the project name in the title bar. It should exit when you close it. I would set the layout as a border layout - if you don't, I think it defaults to that, but it's better to be explicit. And, of course, set the visibility as the last line of the constructor.
+Create the usual constructor for a frame. I set my size to be 400x200, but you may want yours a little bigger or smaller depending on your screen and fonts. Put your name and the project name in the title bar. It should exit when you close it. I would set the layout as a border layout - if you don't, I think it defaults to that, but it's better to be explicit. And, of course, set the visibility as the last line of the constructor.
 
 The main method should just instantiate a new instance of your class. At this point, test it to make sure you didn't forget anything. It should just be a gray app window.
 
@@ -120,7 +120,7 @@ class ButtonListener implements ActionListener {
 ```
 Now find the commented line that adds a new ButtonListener and uncomment it. 
 
-Test your code. It should not make a visible difference, but the button should work without causing errors. If you would like to see it better, you could add a line after the attempts label line with inputField.setText(chosenWord) or System.out.println(chosenWord) to see that it's actually picking a new word when you click the button. But remember to delete this when you're done testing!
+Test your code. It should not make a visible difference, but the button should work without causing errors. If you would like to see it better, you could add a line after the attempts label line with System.out.println(chosenWord) to see that it's actually picking a new word when you click the button. But remember to delete this when you're done testing!
 
 Once the button works, we can add functionality to the text field by adding a listener to it, which will be activated when the user hits enter. Add this after the ButtonListener class but before the main method.
 ```
@@ -160,13 +160,12 @@ Now our variable will be a list rather than an array. We need to initialize it i
 words = new ArrayList<>();
 
 // Getting the file from the resources folder
-InputStream inputStream = DictionaryReader.class.getClassLoader().getResourceAsStream("dictionary.txt");
+InputStream inputStream = LetterMatch.class.getClassLoader().getResourceAsStream("dictionary.txt");
 
-// Check if the file exists
-if (inputStream == null) {
-    System.out.println("File not found in the resources folder.");
-    return;
-}
+        // Check if the file exists
+        if (inputStream == null) {
+            JOptionPane.showMessageDialog(null, "alert", "File not found!", JOptionPane.ERROR_MESSAGE);
+        }
 
 // Read file content and add to words
 try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
@@ -193,11 +192,11 @@ Since the constructor runs before other code, there should be no need to adjust 
 
 At this point, your app runs with a vocabulary of 100 words. Test this by playing and resetting a few times to see you're getting different words. You could print the word chosen to the command line so you don't have to guess - but this is just for testing purposes! Take that out of the final product.
 
-Finally, switch from dictionary.txt to wordlist.txt to have a list of 3000+ words. It's a simple little word game.
+Finally, switch from dictionary.txt to wordlist.txt to have a list of 3000+ words. Now it's a simple little word game, but realistic.
 
 ## Embellishments
 
-Naturally, you'll want to make little stylistic changes. Put your name on the title bar or find a better name for the class. Change colors of the letter buttons with a line like letterButtons[i].setBackground(Color.PINK) in the for loop that instantiates them. You may want to adjust the size or face of the font for the letters. I also noticed that when words with more than one M or W came up, the buttons were too narrow - you could fix that by pushing the frame width up by 50 or so.
+Naturally, you'll want to make little stylistic changes. Put your name on the title bar or find a better name for the class. Change colors of the letter buttons with a line like letterButtons[i].setBackground(Color.PINK) in the for loop that instantiates them. You may want to adjust the size or face of the font for the letters. I also noticed that when words with more than one M or W came up, the buttons were too narrow - you could fix that by pushing the frame width up by 50 pixels or so.
 
 A vastly larger change would be this: include a larger dictionary. You can find files like this online - Scrabble players frequently compile these. The problem with that is that it has a uniform probability of choosing each word. So "dog" and "antidisestablishmentarianism" will show up just as often. If you're worried about that, maybe use a line like 
 ```
@@ -206,6 +205,6 @@ if ((line.length() > 3) && (line.length() < 10)) {
 ```
 Where I just chose 3 & 10 arbitrarily.
 
-This means that you need to vary the number of buttons to display the word, though. Maybe consider making a list instead of an array so you can add and remove when the reset button is pressed. It also means you need to change the width of the frame (probably 80-90 * length), which may be harder to make work.
+This would mean that you need to vary the number of buttons to display the word, though. Maybe consider making a list of buttons instead of an array so you can add and remove when the reset button is pressed. It also means you need to change the width of the frame (probably 80-90 * length), which may be harder to make work.
 
 A final notion would be to use this idea to write a game very much like Wordle. You'd need 6 rows of 5 buttons, and when the user types a word, it should check to see if their word is in the list of 3000+ that's in use and refuse words that aren't in the list. For correct letters in the right position, color the button's background green and for correct letters in the wrong position, color it yellow.

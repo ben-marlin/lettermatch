@@ -28,7 +28,7 @@ public class WordPicker extends JFrame {
         words = new ArrayList<>();
 
         // Getting the file from the resources folder
-        InputStream inputStream = DictionaryReader.class.getClassLoader().getResourceAsStream("dictionary.txt");
+        InputStream inputStream = WordPicker.class.getClassLoader().getResourceAsStream("dictionary.txt");
 
         // Check if the file exists
         if (inputStream == null) {
