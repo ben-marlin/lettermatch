@@ -43,12 +43,12 @@ Add the following before your constructor.
 
     private String chosenWord;
     private final JButton[] letterButtons;
-    private final JTextField inputField;
-    private final JLabel attemptsLabel;
-    private int attempts;
-    Random random = new Random();
+    // private final JTextField inputField;
+    // private final JLabel attemptsLabel;
+    // private int attempts;
+    // Random random = new Random();
 ```
-Your private class for the listener will need access to all of these. Note we have a VERY short list of words to start with. We'll add to this once we have the app working.
+Your private class for the listener will need access to all of these. Note we have a VERY short list of words to start with. We'll add to this once we have the app working. I've commented out the second set of components - you'll have to uncomment them later.
 
 ## Adding Components
 
@@ -73,7 +73,7 @@ inputField = new JTextField(20);
 attemptsLabel = new JLabel("Attempts: 0");
 attempts = 0;
 
-chosenWord = words[random.nextInt(words.length())];
+chosenWord = words[random.nextInt(words.length)];
 
 // South panel with text field, attempts label, and reset button
 JPanel southPanel = new JPanel();
@@ -96,7 +96,9 @@ infoPanel.add(resetButton);
 southPanel.add(infoPanel, BorderLayout.EAST);
 add(southPanel, BorderLayout.SOUTH);
 ```
-I've commented out the lines that add action listeners, since we haven't written them yet. But note how this works - we've added a text field to the center of southPanel and a panel with the label and button to the east of southPanel. It would also have made sense to use a 3x1 grid layout on southPanel, but it would have made the button look weirdly big.
+I've commented out the lines that add action listeners, since we haven't written them yet. Leave those commented, but return to the global fields and uncomment the lines with inputField, attemptsLabel, and the integer attempts.
+
+Note the visual of how this works - we've added a text field to the center of southPanel and a panel with the label and button to the east of southPanel. It would also have made sense to use a 3x1 grid layout on southPanel, but it would have made the button look weirdly big.
 
 Also note our routine: make the components that go into a panel, make the panel, set the layout, add the components. We can add the listeners at any point, but this routine is pretty regular.
 
